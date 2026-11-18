@@ -338,14 +338,14 @@ def sc_quad(c, W_):
     c.rect(0, 0, W_, 40, "#dce9f2")
     c.rect(0, 88, W_, 100, "#8e8f94")
     c.rect(0, 86, W_, 88, "#7b7c82")
-    xs = [cx - 135, cx - 95, cx - 55, cx - 15]
+    xs = [cx - 150, cx - 105, cx - 60, cx - 15]
     fl = [f_usa, f_jp, f_in, f_au]
     for x, f in zip(xs, fl):
         pole(c, x, 36, 90)
-        f(c, x + 1, 38, 34, 22)
+        f(c, x + 1, 38, 40, 26)
     # ore pile
     cols = ["#6a4aa8", "#8d6ad0", "#4a8fb0", "#5fb1c9", "#a78be0"]
-    base = [(cx + 30, 90), (cx + 50, 72), (cx + 68, 62), (cx + 88, 70), (cx + 112, 90)]
+    base = [(cx + 30, 92), (cx + 50, 74), (cx + 68, 66), (cx + 88, 72), (cx + 114, 92)]
     c.poly(base, "#5d5a63")
     for (x, y, h, wd, i) in [(cx + 44, 86, 24, 8, 0), (cx + 60, 86, 34, 10, 1), (cx + 76, 86, 26, 9, 2),
                               (cx + 90, 86, 20, 8, 3), (cx + 54, 70, 18, 7, 4), (cx + 72, 64, 20, 8, 1), (cx + 100, 86, 14, 7, 2)]:
@@ -361,13 +361,14 @@ def sc_measles(c, W_):
     # Americas silhouette (coarse)
     na = [(-30, 34), (-8, 30), (4, 33), (14, 38), (20, 44), (14, 52), (6, 56), (-2, 60), (4, 66), (8, 70), (2, 72), (-6, 66), (-16, 58), (-26, 52), (-32, 46)]
     sa = [(6, 70), (16, 72), (28, 78), (30, 86), (22, 94), (18, 99), (12, 90), (8, 82)]
-    ox = cx - 20
-    c.poly([(ox + x, y) for x, y in na], "#e8dfc4", "#8e8468", 0.9)
-    c.poly([(ox + x, y) for x, y in sa], "#e8dfc4", "#8e8468", 0.9)
+    ox = cx - 22
+    ym = lambda y: 38 + (y - 30) * 0.86
+    c.poly([(ox + x, ym(y)) for x, y in na], "#e8dfc4", "#8e8468", 0.9)
+    c.poly([(ox + x, ym(y)) for x, y in sa], "#e8dfc4", "#8e8468", 0.9)
     # hotspots US, Mexico, Bolivia
     for (x, y) in [(-6, 42), (-14, 54), (18, 80)]:
-        c.circ(ox + x, y, 7, "#b0202c")
-        c.circ(ox + x, y, 3, "#f3c9c4")
+        c.circ(ox + x, ym(y), 7, "#b0202c", "#ffffff", 0.8)
+        c.circ(ox + x, ym(y), 3, "#f3c9c4")
     # virus particle (left)
     vx, vy = cx - 105, 60
     for i in range(14):
@@ -378,7 +379,7 @@ def sc_measles(c, W_):
     c.circ(vx - 5, vy - 5, 3, "#d94b55")
     c.circ(vx + 6, vy + 4, 2.4, "#8f1823")
     # syringe (right, diagonal)
-    sx, sy = cx + 80, 66
+    sx, sy = cx + 92, 52
     parts = [
         ([(-34, -4), (-6, -4), (-6, 4), (-34, 4)], "#f2f4f7"),
         ([(-6, -2), (12, -0.6), (12, 0.6), (-6, 2)], "#9aa3ad"),
@@ -438,10 +439,10 @@ def sc_trade(c, W_):
                 c.line([(x + j * 5.6, y + 1), (x + j * 5.6, y + 12)], "#1f2a36", 0.4)
             k += 1
     # down arrow with tariff %
-    ax = cx + 118
+    ax = cx + 132
     c.poly([(ax - 9, 40), (ax + 9, 40), (ax + 9, 58), (ax + 19, 58), (ax, 76), (ax - 19, 58), (ax - 9, 58)], "#1c8a4a", "#0f5a2e", 1)
-    c.circ(ax - 36, 52, 9, "#f3ead3", "#1f2a36", 1)
-    c.text(ax - 36, 52.5, "%", "sb", 13, "#1f2a36", "mm")
+    c.circ(ax - 2, 38, 9, "#f3ead3", "#1f2a36", 1)
+    c.text(ax - 2, 38.5, "%", "sb", 13, "#1f2a36", "mm")
 
 
 def sc_plane(c, W_):
@@ -656,8 +657,8 @@ def draw_plate(im, w, h, text, pos, px):
 
 def make_panel(story, w, h, k_plate_px):
     im = Image.new("RGB", (round(w * S), round(h * S)), "#ffffff")
-    k = h / 100.0
-    c = Cv(im, k)
+    k = h / 92.0
+    c = Cv(im, k, 0, -8 * k)
     fn, p1, pos1, p2, pos2 = SCENES[story["id"]]
     fn(c, w / k)
     draw_plate(im, w, h, p1, pos1, k_plate_px)
@@ -877,22 +878,21 @@ def render():
         reg = REG[st["region"]]
         tile = (x0, y0, x0 + tw_, y0 + th)
         # panel
-        ph = round(th * (0.45 if big else 0.44))
+        SH = 17
+        ph = 86 if big else 71
         pimg = make_panel(st, round(tw_), ph, 12)
         im.paste(pimg, (round(x0 * S), round(y0 * S)))
-        c.rect(x0, y0 + ph, x0 + tw_, y0 + ph + 3, reg)
+        c.rect(x0, y0 + ph, x0 + tw_, y0 + ph + SH, reg)
         c.rect(x0, y0, x0 + tw_, y0 + th, None, "#a99d82", 0.8)
-        ty_ = y0 + ph + 3 + 4
-        # number badge + label
-        br = 8 if big else 7.5
-        c.circ(x0 + 6 + br, ty_ + br, br, reg)
-        put.fill = "#ffffff"
-        put(f"badge {st['id']}", str(st["id"]), "sb", 12 if big else 11.5, x0 + 6 + br, ty_ + br + 0.5, "mm", tile)
+        # number badge + label strip
+        br = 7.2
+        c.circ(x0 + 6 + br, y0 + ph + SH / 2, br, "#ffffff")
         put.fill = reg
-        lab = f"{st['region'].upper()} \u00b7 {st['beat']}"
-        lpx = 11
-        put(f"label {st['id']}", lab, "sb", lpx, x0 + 6 + 2 * br + 6, ty_ + br - 1, "lm", tile)
-        ty_ += 2 * br + 2
+        put(f"badge {st['id']}", str(st["id"]), "sb", 11.5, x0 + 6 + br, y0 + ph + SH / 2 + 0.5, "mm", tile)
+        put.fill = "#ffffff"
+        lab = f"{st['region'].upper()} · {st['beat']}"
+        put(f"label {st['id']}", lab, "sb", 11, x0 + 6 + 2 * br + 6, y0 + ph + SH / 2 + 0.5, "lm", tile)
+        ty_ = y0 + ph + SH + 3
         # headline
         inner = tw_ - 12
         if big:
@@ -901,31 +901,33 @@ def render():
             except AssertionError:
                 hpx, hlines = fit_head(st["head"], inner, [19, 18, 17.5, 17], 3)
         else:
-            hpx, hlines = fit_head(st["head"], inner, [16.5, 16, 15.5, 15, 14.5, 14], 2)
-        lh = hpx * 1.14
+            hpx, hlines = fit_head(st["head"], inner, [15, 14.5, 14], 2)
+        lh = hpx * 1.1
         put.fill = INK
         for j, ln in enumerate(hlines):
             put(f"head {st['id']}.{j}", ln, "gb", hpx, x0 + 6, ty_ + j * lh, "la", tile)
-        ty_ += len(hlines) * lh + 2
+        ty_ += len(hlines) * lh + 1.5
         # sub
         spx_l = [11.5, 11, 10.5, 10]
-        remaining = (y0 + th - 3) - ty_
+        remaining = (y0 + th - 2) - ty_
         sizes_ok = None
         for spx in spx_l:
-            ml = int(remaining // (spx * 1.2))
+            ml = int(remaining // (spx * 1.17))
             p, lines = fit_sub(st["sub"], inner, [spx], ml)
             if lines and not lines[-1].endswith("\u2026") and p == spx and len(lines) <= ml:
                 sizes_ok = (p, lines)
                 break
         if sizes_ok is None:
             spx = 10
-            ml = int(remaining // (spx * 1.2))
+            ml = int(remaining // (spx * 1.17))
             sizes_ok = fit_sub(st["sub"], inner, [spx], ml)
         sp, slines = sizes_ok
+        if slines and slines[-1].endswith("…"):
+            print("TRUNCATED sub", st["id"], slines)
         assert sp is None or sp >= 10
         put.fill = SOFT
         for j, ln in enumerate(slines or []):
-            put(f"sub {st['id']}.{j}", ln, "s", sp, x0 + 6, ty_ + j * sp * 1.2, "la", tile)
+            put(f"sub {st['id']}.{j}", ln, "s", sp, x0 + 6, ty_ + j * sp * 1.17, "la", tile)
 
     # ---- map
     put.fill = INK
@@ -958,6 +960,10 @@ def render():
         c.circ(x_, y_, r_, col, "#ffffff", 1.2)
         put.fill = "#ffffff"
         put(f"pin {rr['id']}", str(rr["id"]), "sb", 10, x_, y_ + 0.4, "mm", mb)
+    ky = box[3] + 6
+    put.fill = SOFT
+    put("map note 1", "Numbered circle = lead story (same number as its tile).", "s", 11.5, M, ky, "la", (M, ky - 2, M + map_w + 2, ky + 16))
+    put("map note 2", "Small dot = brief, listed at right (13-35). Colour = region.", "s", 11.5, M, ky + 14, "la", (M, ky + 12, M + map_w + 2, ky + 30))
     # ---- briefs
     rx = M + map_w + 18
     colw = (W - M - rx) / 2
