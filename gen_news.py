@@ -848,7 +848,7 @@ def render():
             hpx, hlines = fit_head(st["head"], inner, [16.5, 16, 15.5, 15], 2)
             hb = len(hlines) * hpx * 1.1 + 1.5
             room = th - SH - 3 - hb - 2.5 - 60          # keep >= 60 px of picture
-            sp, slines = fit_sub(st["sub"], inner, [11.5, 11, 10.5], room)
+            sp, slines = fit_sub(st["sub"], inner, [11.5, 11], room)
             used = len(slines) * sp * 1.17
             ph = int(th - SH - 3 - hb - 2.5 - used)
             ph = min(ph, 92)
@@ -880,9 +880,9 @@ def render():
         for j, ln in enumerate(hlines):
             put(f"head {st['id']}.{j}", ln, "gb", hpx, x0 + 6, ty_ + j * lh, "la", tile)
         ty_ += len(hlines) * lh + 1.5
-        # sub: whole text, else leading whole sentences, else dropped (never an ellipsis, never < 10.5 px)
+        # sub: whole text, else leading whole sentences, else dropped (never an ellipsis, never < 11 px)
         if big:
-            sp, slines = fit_sub(st["sub"], inner, [11.5, 11, 10.5], (y0 + th - 2.5) - ty_)
+            sp, slines = fit_sub(st["sub"], inner, [11.5, 11], (y0 + th - 2.5) - ty_)
         put.fill = SOFT
         for j, ln in enumerate(slines):
             put(f"sub {st['id']}.{j}", ln, "s", sp, x0 + 6, ty_ + j * sp * 1.17, "la", tile)
