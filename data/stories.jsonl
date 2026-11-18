@@ -1,0 +1,35 @@
+{"id":1,"lead":true,"region":"Europe","beat":"UKRAINE WAR","head":"Crimean Bridge partly collapses after Ukrainian strikes","sub":"Zelensky calls it an unprecedented operation weeks in the making. The Kremlin says it will rebuild the bridge.","pin":[36.5,45.3],"src":"BBC, Al Jazeera"}
+{"id":2,"lead":true,"region":"Middle East","beat":"IRAN WAR","head":"Iran fires drones at Bahrain after US strikes on Qeshm","sub":"Bahrain says it stopped the drones. The IRGC says it targeted a US radar; the US says nothing was damaged.","pin":[50.6,26.2],"src":"Al Jazeera"}
+{"id":3,"lead":true,"region":"Middle East","beat":"WEST BANK","head":"Israeli settlers kill a Palestinian woman, 72, near Jericho","sub":"Ten others were wounded, the Palestinian health ministry says. Israel's army says the settlers fired after being attacked.","pin":[35.46,31.86],"src":"BBC, Al Jazeera"}
+{"id":4,"lead":true,"region":"Asia","beat":"DIPLOMACY","head":"Trump announces critical-minerals deals at the Quad summit in Manila","sub":"He says they will prevent 'coercion by any single foreign supplier'. Modi, Takaichi and Albanese also attended.","pin":[120.98,14.6],"src":"Al Jazeera"}
+{"id":5,"lead":true,"region":"North America","beat":"HEALTH","head":"US loses its measles elimination status after 26 years","sub":"The Pan American Health Organization also strips Mexico and Bolivia. The US has had about 5,400 cases and 10 deaths this year.","pin":[-77.0,38.9],"src":"BBC, Al Jazeera"}
+{"id":6,"lead":true,"region":"North America","beat":"US POLITICS","head":"Democrat Mary Peltola wins the Alaska Senate race","sub":"She defeats Republican Dan Sullivan two weeks after the 3 November vote; Democrats reach 56 Senate seats.","pin":[-149.9,61.2],"src":"BBC, AP"}
+{"id":7,"lead":true,"region":"Asia","beat":"TRADE","head":"China and Canada expand tariff relief after Carney meets Xi","sub":"China cuts tariffs on Canadian pork and seafood; Canada extends exemptions for Chinese steel and aluminium.","pin":[114.06,22.54],"src":"Al Jazeera, AP"}
+{"id":8,"lead":true,"region":"Asia","beat":"DISASTER","head":"Russian military plane crashes in Siberia, killing all 19 aboard","sub":"The Defence Ministry says preliminary findings point to equipment failure.","pin":[86.1,55.35],"src":"AP, Al Jazeera"}
+{"id":9,"lead":true,"region":"Asia","beat":"LABOUR","head":"Bangladesh garment workers clash with police over wages","sub":"Thousands demand a monthly minimum of 30,000 taka ($240) and block highways; at least 37 factories close.","pin":[90.4,23.8],"src":"Al Jazeera, AFP"}
+{"id":10,"lead":true,"region":"Asia","beat":"POLITICS","head":"Mongolia's president announces his resignation","sub":"He quit three days after a former Ulaanbaatar mayor accused him of embezzlement; parliament must accept it.","pin":[106.9,47.9],"src":"AP"}
+{"id":11,"lead":true,"region":"North America","beat":"HAITI","head":"Haitians march in support of Salvadoran anti-gang troops","sub":"Demonstrators rally in several cities. El Salvador says the troops will leave once kidnapped technicians are rescued.","pin":[-72.3,18.55],"src":"Al Jazeera"}
+{"id":12,"lead":true,"region":"Africa","beat":"MOZAMBIQUE","head":"Mozambique's opposition leader goes on trial over 2024 protests","sub":"He arrived at the Supreme Court over his alleged role in deadly protests after the disputed election.","pin":[32.6,-25.97],"src":"Al Jazeera"}
+{"id":13,"lead":false,"region":"Europe","head":"Prague: two trains collide, 46 injured","pin":[14.4,50.1],"src":"BBC"}
+{"id":14,"lead":false,"region":"Europe","head":"UK sanctions eight Israeli firms over West Bank settlements","pin":[-0.1,51.5],"src":"Al Jazeera, AP"}
+{"id":15,"lead":false,"region":"Middle East","head":"Israel: Eisenkot ally Kahana elected Knesset speaker","pin":[35.2,31.77],"src":"Al Jazeera, AP"}
+{"id":16,"lead":false,"region":"Middle East","head":"UAE oil firm says its vessel was attacked in Hormuz","pin":[56.3,26.5],"src":"AP"}
+{"id":17,"lead":false,"region":"Middle East","head":"Yemen's parliament votes to label the Houthis terrorists","pin":[44.2,15.4],"src":"Al Jazeera"}
+{"id":18,"lead":false,"region":"Asia","head":"France and Malaysia sign defence, energy and tech pact","pin":[101.7,3.14],"src":"Reuters"}
+{"id":19,"lead":false,"region":"Asia","head":"Brazil beat Singapore 7-0 in a friendly","pin":[103.8,1.35],"src":"Al Jazeera"}
+{"id":20,"lead":false,"region":"North America","head":"Costa Rica: journalist Camilo Rodriguez shot dead","pin":[-84.1,10.0],"src":"Univision"}
+{"id":21,"lead":false,"region":"North America","head":"Apple outage blamed on an internal update","pin":[-122.0,37.33],"src":"Time"}
+{"id":22,"lead":false,"region":"North America","head":"US: Pakistani man gets 27 years in Iran-backed Trump plot","pin":[-74.0,40.7],"src":"BBC"}
+{"id":23,"lead":false,"region":"Europe","head":"Ireland: man charged over damaged $60m US military plane","pin":[-8.9,52.7],"src":"BBC, AP"}
+{"id":24,"lead":false,"region":"Europe","head":"UK: US Army officer held on spying suspicion moved to US custody","pin":[-2.2,51.9],"src":"BBC"}
+{"id":25,"lead":false,"region":"Europe","head":"North Macedonia arrests five over alleged plot in Greece","pin":[21.4,42.0],"src":"AP"}
+{"id":26,"lead":false,"region":"Africa","head":"Guinea: court jails 224 in gold-mining crackdown","pin":[-9.2,11.4],"src":"DW"}
+{"id":27,"lead":false,"region":"Oceania","head":"Christmas Island: red crabs start annual migration","pin":[105.7,-10.5],"src":"BBC"}
+{"id":28,"lead":false,"region":"Asia","head":"William and Kate present Earthshot Prize in Mumbai","pin":[72.9,19.1],"src":"BBC"}
+{"id":29,"lead":false,"region":"Europe","head":"Five EU states revive plans to deport migrants to Rwanda","pin":[4.35,50.85],"src":"Al Jazeera"}
+{"id":30,"lead":false,"region":"Europe","head":"Fernando Alonso to race the 2027 Dakar Rally","pin":[-3.7,40.4],"src":"Al Jazeera"}
+{"id":31,"lead":false,"region":"North America","head":"US: Kalshi halts Trump speech bets after CFTC order","pin":[-77.0,38.9],"src":"Al Jazeera"}
+{"id":32,"lead":false,"region":"Middle East","head":"Bahrain: activist Nabeel Rajab dies at 62","pin":[50.6,26.2],"src":"AP"}
+{"id":33,"lead":false,"region":"Africa","head":"Ethiopia: Moyale clashes deepen a territorial dispute","pin":[39.05,3.52],"src":"Al Jazeera"}
+{"id":34,"lead":false,"region":"Asia","head":"South Korea: AI smart glasses raise exam cheating fears","pin":[126.98,37.57],"src":"Al Jazeera"}
+{"id":35,"lead":false,"region":"North America","head":"US: Fed's Lisa Cook refuses to attend White House hearing","pin":[-77.0,38.9],"src":"Al Jazeera"}
