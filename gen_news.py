@@ -324,8 +324,8 @@ def sc_quad(c, W_):
     xs = [cx - 150, cx - 105, cx - 60, cx - 15]
     fl = [f_usa, f_jp, f_in, f_au]
     for x, f in zip(xs, fl):
-        pole(c, x, 36, 90)
-        f(c, x + 1, 38, 40, 26)
+        pole(c, x, 46, 90)
+        f(c, x + 1, 48, 40, 26)
     # ore pile
     cols = ["#6a4aa8", "#8d6ad0", "#4a8fb0", "#5fb1c9", "#a78be0"]
     base = [(cx + 30, 92), (cx + 50, 74), (cx + 68, 66), (cx + 88, 72), (cx + 114, 92)]
@@ -378,28 +378,37 @@ def sc_measles(c, W_):
         c.poly(rot([(sx + x, sy + y) for x, y in pts], sx, sy, -35), col, "#4a5360", 0.6)
 
 
+AK_LL = [(-141, 69.6), (-145, 70.0), (-150, 70.4), (-156.6, 71.3), (-161, 70.3), (-166, 68.8), (-163, 67.0), (-168, 65.6),
+         (-164, 64.5), (-161, 64.4), (-161, 63.4), (-165, 62.5), (-165.5, 61), (-166, 60), (-162, 59.5), (-162, 58.6), (-158, 58.7),
+         (-157, 57.6), (-160, 56.3), (-164.5, 54.7), (-160, 55.7), (-156, 57.2), (-154, 58.5), (-152.5, 60), (-150, 61.2),
+         (-151.5, 59.3), (-149, 60), (-147, 60.8), (-144, 60), (-141, 59.9), (-139, 59.2), (-136.5, 57.5), (-134.5, 55.8),
+         (-133, 54.7), (-131.2, 54.7), (-130, 55.9), (-131.6, 56.8), (-133.6, 58.4), (-135.5, 59.7), (-137.5, 59.1),
+         (-139.5, 60.3), (-141, 60.3)]
+
+
 def sc_alaska(c, W_):
     cx = W_ / 2
-    c.rect(0, 0, W_, 100, "#274a7a")
     c.rect(0, 0, W_, 100, "#2c5588")
-    for r in range(0, 4):
-        c.line([(0, 40 + r * 18), (W_, 40 + r * 18)], "#3a669c", 0.5)
-    ak = [(0, 10), (8, 4), (22, 2), (36, 3), (40, 12), (38, 20), (42, 27), (52, 34), (58, 44), (55, 47), (48, 42), (40, 36), (34, 32), (30, 36), (24, 34), (20, 38), (12, 33), (8, 28), (2, 26), (-4, 22), (0, 16)]
-    ox, oy = cx - 100, 36
-    c.poly([(ox + x * 1.45, oy + y * 1.2) for x, y in ak], "#ece3c6", "#14243b", 1)
-    for (x, y) in [(-8, 44), (-16, 47), (-24, 49)]:
-        c.circ(ox + x * 1.45, oy + y * 1.2, 2.4, "#ece3c6")
-    c.poly(star(ox + 24 * 1.45, oy + 14 * 1.2, 5, 2.2, 5), "#2c5588")
-    # ballot box
-    bx = cx + 60
-    c.rect(bx - 28, 62, bx + 28, 94, "#eee8d6", "#10203a", 1.2)
-    c.rect(bx - 28, 62, bx + 28, 70, "#c92a35")
-    c.rect(bx - 14, 66, bx + 14, 68, "#10203a")
-    c.rect(bx - 17, 40, bx + 17, 62, "#ffffff", "#10203a", 1)
-    c.line([(bx - 11, 46), (bx + 11, 46)], "#9aa3b2", 1.2)
-    c.line([(bx - 11, 51), (bx + 5, 51)], "#9aa3b2", 1.2)
-    c.line([(bx - 8, 56), (bx - 3, 61), (bx + 12, 44)], "#14933e", 3.2)
-    c.poly(star(bx, 82, 7, 3, 5), "#f3e9c3")
+    for r in range(0, 5):
+        c.line([(0, 44 + r * 14), (W_, 44 + r * 14)], "#3a669c", 0.6)
+    sc = 4.3
+    ox = cx - 150
+    T = lambda lo, la: (ox + (lo + 168) * 0.46 * sc, 31 + (71.4 - la) * sc)
+    c.poly([T(lo, la) for lo, la in AK_LL], "#ece3c6", "#14243b", 1.1)
+    for lo, la in [(-170, 52.5), (-174, 52.2), (-178, 51.8)]:
+        c.circ(*T(lo + 3, la + 0.2), 1.6, "#ece3c6")
+    ax, ay = T(-149.9, 61.2)
+    c.poly(star(ax, ay, 7.5, 3.2, 5), "#c92a35", "#ffffff", 0.9)
+    # ballot box with a ballot and a check mark
+    bx = cx + 78
+    c.rect(bx - 40, 66, bx + 40, 98, "#eee8d6", "#10203a", 1.4)
+    c.rect(bx - 40, 66, bx + 40, 76, "#c92a35")
+    c.rect(bx - 20, 70, bx + 20, 72.5, "#10203a")
+    c.rect(bx - 24, 36, bx + 24, 69, "#ffffff", "#10203a", 1.2)
+    c.line([(bx - 16, 44), (bx + 16, 44)], "#9aa3b2", 1.6)
+    c.line([(bx - 16, 51), (bx + 6, 51)], "#9aa3b2", 1.6)
+    c.line([(bx - 13, 57), (bx - 6, 64.5), (bx + 16, 40)], "#14933e", 4.4)
+    c.poly(star(bx, 88, 8, 3.4, 5), "#f3e9c3")
 
 
 def sc_serbia(c, W_):
@@ -583,38 +592,37 @@ def sc_haiti(c, W_):
     f_sv(c, cx + 101, 40, 36, 24)
 
 
-def sc_court(c, W_):
+def sc_nvidia(c, W_):
     cx = W_ / 2
-    c.rect(0, 0, W_, 100, "#d5cdbb")
-    c.rect(0, 0, W_, 45, "#e3dccb")
-    c.rect(0, 90, W_, 100, "#9a9484")
-    bx = cx - 10
-    # courthouse
-    c.poly([(bx - 52, 50), (bx, 33), (bx + 52, 50)], "#f1ece0", "#5a5546", 1)
-    c.rect(bx - 52, 50, bx + 52, 55, "#e4ddcc", "#5a5546", 0.8)
+    c.rect(0, 0, W_, 100, "#15293d")
+    c.rect(0, 0, W_, 100, "#183148")
+    for r in range(5):
+        c.line([(0, 48 + r * 12), (W_, 48 + r * 12)], "#24435f", 0.6)
+    # chip (left): package, pins, green die
+    chx, chy, hs = cx - 100, 66, 32
     for i in range(6):
-        x = bx - 46 + i * 18.4
-        c.rect(x, 55, x + 7, 84, "#f7f3e8", "#8a8470", 0.6)
-    c.rect(bx - 56, 84, bx + 56, 88, "#e4ddcc", "#5a5546", 0.8)
-    c.rect(bx - 60, 88, bx + 60, 92, "#d7d0be", "#5a5546", 0.8)
-    c.circ(bx, 46, 3.5, "#d9b43a")
-    # scales (left)
-    sx = cx - 120
-    c.rect(sx - 1, 52, sx + 1, 86, "#3a342a")
-    c.rect(sx - 8, 86, sx + 8, 90, "#3a342a")
-    c.line([(sx - 22, 54), (sx + 22, 54)], "#3a342a", 2)
-    for dx in (-22, 22):
-        c.line([(sx + dx, 54), (sx + dx - 8, 70)], "#3a342a", 0.8)
-        c.line([(sx + dx, 54), (sx + dx + 8, 70)], "#3a342a", 0.8)
-        c.poly([(sx + dx - 11, 70), (sx + dx + 11, 70), (sx + dx + 6, 75), (sx + dx - 6, 75)], "#d9b43a", "#3a342a", 0.8)
-    c.circ(sx, 52, 3, "#d9b43a")
-    # gavel (right)
-    gx, gy = cx + 112, 78
-    c.rrect(gx - 22, 90, gx + 24, 95, 1.5, "#5e3d22")
-    c.poly(rot([(gx - 14, gy - 24), (gx + 6, gy - 24), (gx + 6, gy - 10), (gx - 14, gy - 10)], gx, gy, 25), "#7a4e2a", "#3a2412", 0.8)
-    c.poly(rot([(gx - 6, gy - 10), (gx - 2, gy - 10), (gx - 2, gy + 14), (gx - 6, gy + 14)], gx, gy, 25), "#9a6a3a", "#3a2412", 0.8)
-    c.poly(rot([(gx - 17, gy - 26), (gx - 14, gy - 26), (gx - 14, gy - 8), (gx - 17, gy - 8)], gx, gy, 25), "#b8892e")
-    c.poly(rot([(gx + 6, gy - 26), (gx + 9, gy - 26), (gx + 9, gy - 8), (gx + 6, gy - 8)], gx, gy, 25), "#b8892e")
+        o = -26 + i * 10.4
+        c.rect(chx + o - 2, chy - hs - 8, chx + o + 2, chy - hs, "#c9ced6")
+        c.rect(chx + o - 2, chy + hs, chx + o + 2, chy + hs + 8, "#c9ced6")
+        c.rect(chx - hs - 8, chy + o - 2, chx - hs, chy + o + 2, "#c9ced6")
+        c.rect(chx + hs, chy + o - 2, chx + hs + 8, chy + o + 2, "#c9ced6")
+    c.rrect(chx - hs, chy - hs, chx + hs, chy + hs, 4, "#2b3340", "#0c121a", 1.4)
+    c.rrect(chx - 21, chy - 21, chx + 21, chy + 21, 3, "#76b900", "#0c121a", 1.2)
+    for i in (-1, 0, 1):
+        c.line([(chx - 15, chy + i * 11), (chx + 15, chy + i * 11)], "#1d3a00", 1.8)
+        c.line([(chx + i * 11, chy - 15), (chx + i * 11, chy + 15)], "#1d3a00", 1.8)
+    # rising bars (right)
+    base = 96
+    hts = [14, 22, 30, 44, 56]
+    for i, h_ in enumerate(hts):
+        x0 = cx - 24 + i * 25
+        c.rect(x0, base - h_, x0 + 18, base, "#76b900" if i == 4 else "#5f93c4", "#0c121a", 0.9)
+    c.line([(cx - 20, base - 24), (cx + 18, base - 40), (cx + 52, base - 52), (cx + 86, base - 66)], "#ffffff", 1.8)
+    c.poly(rot([(cx + 92, base - 69), (cx + 78, base - 73), (cx + 80, base - 60)], cx + 86, base - 66, 0), "#ffffff")
+    c.line([(cx - 28, base), (cx + 104, base)], "#c9ced6", 1.4)
+
+
+ZOOM = {4: 1.25, 10: 1.2}
 
 
 # (scene fn, plate1, plate1 pos, plate2, plate2 pos)
@@ -630,7 +638,7 @@ SCENES = {
     9: (sc_bangladesh, "WAGE PROTEST", "tr", None, None),
     10: (sc_mongolia, "PRESIDENT RESIGNS", "tl", None, None),
     11: (sc_haiti, "MARCH FOR SALVADORAN TROOPS", "tl", None, None),
-    12: (sc_court, "OPPOSITION LEADER ON TRIAL", "tl", None, None),
+    12: (sc_nvidia, "NVIDIA: $115.8bn", "tl", "SALES DOUBLED", "tr"),
 }
 
 
@@ -650,9 +658,10 @@ def draw_plate(im, w, h, text, pos, px):
 def make_panel(story, w, h, k_plate_px):
     im = Image.new("RGB", (round(w * S), round(h * S)), "#ffffff")
     k = h / 92.0
-    c = Cv(im, k, 0, -8 * k)
+    z = ZOOM.get(story["id"], 1.0)
+    c = Cv(im, k * z, 0, h - 100 * k * z)
     fn, p1, pos1, p2, pos2 = SCENES[story["id"]]
-    fn(c, w / k)
+    fn(c, w / (k * z))
     draw_plate(im, w, h, p1, pos1, k_plate_px)
     if p2:
         draw_plate(im, w, h, p2, pos2, k_plate_px)
@@ -810,13 +819,12 @@ def render():
     put("footer", foot, "s", fpx, W / 2, H - 19, "ma", (M, H - 22, W - M, H))
 
     # ---- bottom band geometry: map + field list (left), briefs in two columns (right)
-    BPX = 12
-    ROWH = 13.6
+    BPX = 12.5
+    ROWH = 14.5
     nrows = (len(briefs) + 1) // 2
-    maxw = max(tw("s", BPX, b_["head"]) for b_ in briefs)
-    colw = 19 + maxw + 8
-    map_w = CW - 2 * colw - 16
-    assert map_w >= 280, ("map too small", map_w)
+    colws = [19 + max(tw("s", BPX, b_["head"]) for b_ in briefs[k * nrows:(k + 1) * nrows]) + 8 for k in range(2)]
+    map_w = CW - sum(colws) - 16
+    assert map_w >= 240, ("map too small", map_w)
     band_h = 18 + nrows * ROWH + 4
     band_top = H - 24 - band_h
     c.rect(M, band_top - 4, W - M, band_top - 3, INK)
@@ -840,7 +848,21 @@ def render():
         tile = (x0, y0, x0 + tw_, y0 + th)
         # panel
         SH = 17 if big else 16
-        ph = 74 if big else 68
+        inner = tw_ - 12
+        if big:
+            try:
+                hpx, hlines = fit_head(st["head"], inner, [22, 21, 20, 19, 18, 17.5, 17], 2)
+            except AssertionError:
+                hpx, hlines = fit_head(st["head"], inner, [19, 18, 17.5, 17], 3)
+            ph = 74
+        else:
+            hpx, hlines = fit_head(st["head"], inner, [16.5, 16, 15.5, 15], 2)
+            hb = len(hlines) * hpx * 1.1 + 1.5
+            room = th - SH - 3 - hb - 2.5 - 66          # keep >= 66 px of picture
+            sp, slines = fit_sub(st["sub"], inner, [11.5, 11, 10.5], room)
+            used = len(slines) * sp * 1.17
+            ph = int(th - SH - 3 - hb - 2.5 - used)
+            ph = min(ph, 92)
         pimg = make_panel(st, round(tw_), ph, 12)
         im.paste(pimg, (round(x0 * S), round(y0 * S)))
         c.rect(x0, y0 + ph, x0 + tw_, y0 + ph + SH, reg)
@@ -855,21 +877,14 @@ def render():
         put(f"label {st['id']}", lab, "sb", 11, x0 + 6 + 2 * br + 6, y0 + ph + SH / 2 + 0.5, "lm", tile)
         ty_ = y0 + ph + SH + 3
         # headline (whole, wrapped by words, never truncated)
-        inner = tw_ - 12
-        if big:
-            try:
-                hpx, hlines = fit_head(st["head"], inner, [21, 20, 19, 18, 17.5, 17], 2)
-            except AssertionError:
-                hpx, hlines = fit_head(st["head"], inner, [19, 18, 17.5, 17], 3)
-        else:
-            hpx, hlines = fit_head(st["head"], inner, [15, 14.5, 14], 2)
         lh = hpx * 1.1
         put.fill = INK
         for j, ln in enumerate(hlines):
             put(f"head {st['id']}.{j}", ln, "gb", hpx, x0 + 6, ty_ + j * lh, "la", tile)
         ty_ += len(hlines) * lh + 1.5
         # sub: whole text, else leading whole sentences, else dropped (never an ellipsis, never < 10.5 px)
-        sp, slines = fit_sub(st["sub"], inner, [11.5, 11, 10.5], (y0 + th - 2.5) - ty_)
+        if big:
+            sp, slines = fit_sub(st["sub"], inner, [11.5, 11, 10.5], (y0 + th - 2.5) - ty_)
         put.fill = SOFT
         for j, ln in enumerate(slines):
             put(f"sub {st['id']}.{j}", ln, "s", sp, x0 + 6, ty_ + j * sp * 1.17, "la", tile)
@@ -922,7 +937,13 @@ def render():
     notes = wrap(f"Numbered circle = lead story, same number as its tile. Small dot = brief ({n1}-{n2}), listed at right. Colour = region.", "s", 12, map_w)
     for j, ln in enumerate(notes):
         put(f"map note {j}", ln, "s", 12, M, ky + j * 14, "la", (M, ky - 2, M + map_w + 2, ky + 14 * (j + 1) + 2))
-    fy = ky + 14 * len(notes) + 8
+    dpx = 11
+    dnote = wrap("Date check: left out because it was reported earlier - DR Congo's Ebola toll passing 11,000 (11 November).", "s", dpx, map_w)
+    dy0 = ky + 14 * len(notes) + 3
+    put.fill = INK
+    for j, ln in enumerate(dnote):
+        put(f"date check {j}", ln, "sb" if j == 0 and False else "s", dpx, M, dy0 + j * 13, "la", (M, dy0 - 2, M + map_w + 2, dy0 + 13 * (j + 1) + 2))
+    fy = dy0 + 13 * len(dnote) + 7
     # fields tally
     fcount = {}
     for r_ in rows:
@@ -945,7 +966,8 @@ def render():
     put("briefs title", "ALSO ON TUESDAY 17 NOVEMBER", "sb", 12, rx, band_top, "la", (rx, band_top - 3, W - M, band_top + 16))
     c.rect(rx + 215, band_top + 7, W - M, band_top + 8, "#a99d82")
     for i, b in enumerate(briefs):
-        colx = rx + (i // nrows) * colw
+        colx = rx + (i // nrows) * colws[0]
+        colw = colws[i // nrows]
         yy = band_top + 18 + (i % nrows) * ROWH
         put.fill = REG[b["region"]]
         put(f"brief num {b['id']}", str(b["id"]), "sb", BPX, colx, yy, "la", (colx, yy - 1.5, colx + colw, yy + ROWH + 3.5))
