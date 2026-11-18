@@ -1,5 +1,5 @@
-{"id":1,"lead":true,"region":"Europe","field":"war","beat":"UKRAINE WAR","head":"Crimean Bridge partly collapses after Ukrainian strikes","sub":"Zelensky calls it an unprecedented operation weeks in the making. The Kremlin says it will rebuild the bridge.","pin":[36.5,45.3],"src":"BBC, Al Jazeera"}
-{"id":2,"lead":true,"region":"Middle East","field":"war","beat":"IRAN WAR","head":"Iran fires drones at Bahrain after US strikes on Qeshm","sub":"Bahrain says it stopped the drones. The IRGC says it targeted a US radar; the US says nothing was damaged.","pin":[50.6,26.2],"src":"Al Jazeera"}
+{"id":1,"lead":true,"region":"Europe","field":"war","beat":"UKRAINE WAR","head":"Ukraine says strikes brought down a Crimean Bridge span","sub":"Images show a section in the water; Zelensky calls it an unprecedented operation. The Kremlin says it will rebuild.","pin":[36.5,45.3],"src":"BBC, Al Jazeera"}
+{"id":2,"lead":true,"region":"Middle East","field":"war","beat":"IRAN WAR","head":"Iran says its drones targeted a US radar in Bahrain","sub":"Bahrain says it stopped them; the US says nothing was damaged. US jets had struck Qeshm Island.","pin":[50.6,26.2],"src":"Al Jazeera"}
 {"id":3,"lead":true,"region":"Middle East","field":"war","beat":"WEST BANK","head":"Israeli settlers kill a Palestinian woman, 72, near Jericho","sub":"Ten others were wounded, the Palestinian health ministry says. Israel's army says the settlers fired after being attacked.","pin":[35.46,31.86],"src":"BBC, Al Jazeera"}
 {"id":4,"lead":true,"region":"Asia","field":"diplomacy","beat":"DIPLOMACY","head":"Trump announces critical-minerals deals at the Quad summit in Manila","sub":"He says they will prevent 'coercion by any single foreign supplier'. Modi, Takaichi and Albanese also attended.","pin":[120.98,14.6],"src":"Al Jazeera"}
 {"id":5,"lead":true,"region":"North America","field":"health","beat":"HEALTH","head":"US loses its measles elimination status after 26 years","sub":"The Pan American Health Organization also strips Mexico and Bolivia. The US has had about 5,400 cases and 10 deaths this year.","pin":[-77,38.9],"src":"BBC, Al Jazeera"}
@@ -9,7 +9,7 @@
 {"id":9,"lead":true,"region":"Asia","field":"economy","beat":"LABOUR","head":"Bangladesh garment workers clash with police over wages","sub":"Thousands demand a monthly minimum of 30,000 taka ($240) and block highways; at least 37 factories close.","pin":[90.4,23.8],"src":"Al Jazeera, AFP"}
 {"id":10,"lead":true,"region":"Asia","field":"politics","beat":"POLITICS","head":"Mongolia's president announces his resignation","sub":"He quit three days after a former Ulaanbaatar mayor accused him of embezzlement; parliament must accept it.","pin":[106.9,47.9],"src":"AP"}
 {"id":11,"lead":true,"region":"North America","field":"politics","beat":"HAITI","head":"Haitians march in support of Salvadoran anti-gang troops","sub":"Demonstrators rally in several cities. El Salvador says the troops will leave once kidnapped technicians are rescued.","pin":[-72.3,18.55],"src":"Al Jazeera"}
-{"id":12,"lead":true,"region":"Africa","field":"politics","beat":"MOZAMBIQUE","head":"Mozambique's opposition leader goes on trial over 2024 protests","sub":"He arrived at the Supreme Court over his alleged role in deadly protests after the disputed election.","pin":[32.6,-25.97],"src":"Al Jazeera"}
+{"id":12,"lead":true,"region":"North America","field":"economy","beat":"BUSINESS","head":"Nvidia reports quarterly sales of $115.8bn, double a year ago","sub":"Profits also doubled and shares rose 4.8% in after-hours trading, BBC reports.","pin":[-121.96,37.37],"src":"BBC"}
 {"id":13,"lead":false,"region":"Europe","field":"war","head":"Kyiv: Russian strikes hit two Dnipro bridges","pin":[30.52,50.45],"src":"BBC"}
 {"id":14,"lead":false,"region":"Europe","field":"war","head":"Russia says it downed a record 1,441 drones","pin":[37.6,55.75],"src":"Reuters"}
 {"id":15,"lead":false,"region":"Europe","field":"war","head":"Moldova shuts its airspace over a Russian drone","pin":[28.86,47.01],"src":"Reuters"}
@@ -40,7 +40,7 @@
 {"id":40,"lead":false,"region":"Oceania","field":"climate","head":"Christmas Island: red crabs start annual migration","pin":[105.7,-10.5],"src":"BBC"}
 {"id":41,"lead":false,"region":"Oceania","field":"disaster","head":"Cyclone Xavier nears the Cook Islands","pin":[-159.8,-21.2],"src":"RNZ"}
 {"id":42,"lead":false,"region":"North America","field":"law","head":"US: Pakistani man gets 27 years in Trump plot","pin":[-74,40.7],"src":"BBC"}
-{"id":43,"lead":false,"region":"North America","field":"economy","head":"Nvidia quarterly sales double to $115.8bn","pin":[-121.96,37.37],"src":"BBC"}
-{"id":44,"lead":false,"region":"North America","field":"tech","head":"Apple outage blamed on an internal update","pin":[-122,37.33],"src":"Time"}
-{"id":45,"lead":false,"region":"North America","field":"law","head":"Costa Rica: journalist Camilo Rodriguez shot dead","pin":[-84.1,10],"src":"Univision"}
-{"id":46,"lead":false,"region":"South America","field":"law","head":"Ecuador: fishermen sue US over a boat strike","pin":[-79.9,-2.2],"src":"Al Jazeera"}
+{"id":43,"lead":false,"region":"North America","field":"tech","head":"Apple outage blamed on an internal update","pin":[-122,37.33],"src":"Time"}
+{"id":44,"lead":false,"region":"North America","field":"law","head":"Costa Rica: journalist Camilo Rodriguez shot dead","pin":[-84.1,10],"src":"Univision"}
+{"id":45,"lead":false,"region":"South America","field":"law","head":"Ecuador: fishermen sue US over a boat strike","pin":[-79.9,-2.2],"src":"Al Jazeera"}
+{"lead":false,"region":"Africa","field":"politics","head":"Mozambique: opposition leader on trial over 2024 protests","pin":[32.6,-25.97],"src":"Al Jazeera","id":46}
