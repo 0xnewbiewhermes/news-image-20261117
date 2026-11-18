@@ -37,10 +37,11 @@ REG = {
     "Africa": "#6c3a9b",
     "Oceania": "#0b86a8",
     "South America": "#8a8a00",
+    "Global": "#767676",
 }
-REG_ORDER = ["Europe", "Middle East", "Asia", "North America", "Africa", "Oceania", "South America"]
+REG_ORDER = ["Europe", "Middle East", "Asia", "North America", "Africa", "Oceania", "South America", "Global"]
 CONT = {"Europe": "Europe", "Middle East": "Asia", "Asia": "Asia", "North America": "North America",
-        "Africa": "Africa", "Oceania": "Oceania", "South America": "South America"}
+        "Africa": "Africa", "Oceania": "Oceania", "South America": "South America", "Global": None}
 
 CHECKS = []   # (label, (x0,y0,x1,y1), container)
 
@@ -747,7 +748,7 @@ def render():
     leads = sorted([r for r in rows if r["lead"]], key=lambda r: r["id"])
     briefs = sorted([r for r in rows if not r["lead"]], key=lambda r: r["id"])
     N = len(rows)
-    conts = {CONT[r["region"]] for r in rows if r.get("pin")}
+    conts = {CONT[r["region"]] for r in rows} - {None}
     C = len(conts)
     F = len({r["field"] for r in rows})
     assert len(leads) == 12
@@ -811,7 +812,7 @@ def render():
 
     # ---- footer
     foot = "Every story happened or was first reported on Tuesday 17 November 2026; disputed claims are attributed. Sources: BBC, AP, Al Jazeera and others. Original drawings."
-    fpx = 11.5
+    fpx = 12.5
     while tw("s", fpx, foot) > CW and fpx > 9:
         fpx -= 0.25
     c.rect(M, H - 22, W - M, H - 21, INK)
@@ -819,8 +820,8 @@ def render():
     put("footer", foot, "s", fpx, W / 2, H - 19, "ma", (M, H - 22, W - M, H))
 
     # ---- bottom band geometry: map + field list (left), briefs in two columns (right)
-    BPX = 12.5
-    ROWH = 14.5
+    BPX = 12
+    ROWH = 14
     nrows = (len(briefs) + 1) // 2
     colws = [19 + max(tw("s", BPX, b_["head"]) for b_ in briefs[k * nrows:(k + 1) * nrows]) + 8 for k in range(2)]
     map_w = CW - sum(colws) - 16
@@ -858,7 +859,7 @@ def render():
         else:
             hpx, hlines = fit_head(st["head"], inner, [16.5, 16, 15.5, 15], 2)
             hb = len(hlines) * hpx * 1.1 + 1.5
-            room = th - SH - 3 - hb - 2.5 - 66          # keep >= 66 px of picture
+            room = th - SH - 3 - hb - 2.5 - 60          # keep >= 60 px of picture
             sp, slines = fit_sub(st["sub"], inner, [11.5, 11, 10.5], room)
             used = len(slines) * sp * 1.17
             ph = int(th - SH - 3 - hb - 2.5 - used)
@@ -874,7 +875,7 @@ def render():
         put(f"badge {st['id']}", str(st["id"]), "sb", 11.5, x0 + 6 + br, y0 + ph + SH / 2 + 0.5, "mm", tile)
         put.fill = "#ffffff"
         lab = f"{st['region'].upper()} · {st['beat']}"
-        put(f"label {st['id']}", lab, "sb", 11, x0 + 6 + 2 * br + 6, y0 + ph + SH / 2 + 0.5, "lm", tile)
+        put(f"label {st['id']}", lab, "sb", 12, x0 + 6 + 2 * br + 6, y0 + ph + SH / 2 + 0.5, "lm", tile)
         ty_ = y0 + ph + SH + 3
         # headline (whole, wrapped by words, never truncated)
         lh = hpx * 1.1
@@ -903,15 +904,21 @@ def render():
         px_, _ = proj(lon, 0, mb)
         c.line([(px_, mb[1]), (px_, mb[3])], "#cfd9d6", 0.5)
     pins = {}
+    nopin = []
     for rr in rows:
+        if rr.get("pin") is None:
+            nopin.append(rr["id"])
+            continue
         lon, lat = rr["pin"]
         assert MAPBOX[0] <= lon <= MAPBOX[2] and MAPBOX[1] <= lat <= MAPBOX[3], ("pin outside map", rr["id"])
         pins[rr["id"]] = proj(lon, lat, mb)
     # briefs are dots; nudge a dot away only where it would hide under another marker
-    LEADR = 7.2
-    lead_pts = [pins[r_["id"]] for r_ in leads]
+    LEADR = 7.6
+    lead_pts = [pins[r_["id"]] for r_ in leads if r_["id"] in pins]
     dots = []
     for rr in briefs:
+        if rr["id"] in nopin:
+            continue
         ox_, oy_ = pins[rr["id"]]
         x_, y_ = ox_, oy_
         for step in range(60):
@@ -927,23 +934,25 @@ def render():
         dots.append((x_, y_))
         c.circ(x_, y_, 3.0, REG[rr["region"]], "#ffffff", 0.8)
     for rr in leads:
+        if rr["id"] in nopin:
+            continue
         x_, y_ = pins[rr["id"]]
         c.circ(x_, y_, LEADR, REG[rr["region"]], "#ffffff", 1.2)
         put.fill = "#ffffff"
-        put(f"pin {rr['id']}", str(rr["id"]), "sb", 10, x_, y_ + 0.4, "mm", mb)
+        put(f"pin {rr['id']}", str(rr["id"]), "sb", 11, x_, y_ + 0.4, "mm", mb)
     ky = box[3] + 5
     put.fill = SOFT
     n1, n2 = briefs[0]["id"], briefs[-1]["id"]
-    notes = wrap(f"Numbered circle = lead story, same number as its tile. Small dot = brief ({n1}-{n2}), listed at right. Colour = region.", "s", 12, map_w)
+    notes = wrap(f"Numbered circle = lead story, same number as its tile. Small dot = brief ({n1}-{n2}), listed at right. Colour = region." + (f" {len(nopin)} global stor{'y has' if len(nopin) == 1 else 'ies have'} no pin." if nopin else ""), "s", 12, map_w)
     for j, ln in enumerate(notes):
         put(f"map note {j}", ln, "s", 12, M, ky + j * 14, "la", (M, ky - 2, M + map_w + 2, ky + 14 * (j + 1) + 2))
-    dpx = 11
+    dpx = 12
     dnote = wrap("Date check: left out because it was reported earlier - DR Congo's Ebola toll passing 11,000 (11 November).", "s", dpx, map_w)
     dy0 = ky + 14 * len(notes) + 3
     put.fill = INK
     for j, ln in enumerate(dnote):
-        put(f"date check {j}", ln, "sb" if j == 0 and False else "s", dpx, M, dy0 + j * 13, "la", (M, dy0 - 2, M + map_w + 2, dy0 + 13 * (j + 1) + 2))
-    fy = dy0 + 13 * len(dnote) + 7
+        put(f"date check {j}", ln, "sb" if j == 0 and False else "s", dpx, M, dy0 + j * 14, "la", (M, dy0 - 2, M + map_w + 2, dy0 + 14 * (j + 1) + 2))
+    fy = dy0 + 14 * len(dnote) + 7
     # fields tally
     fcount = {}
     for r_ in rows:
