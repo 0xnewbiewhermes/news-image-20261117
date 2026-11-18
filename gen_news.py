@@ -36,8 +36,9 @@ REG = {
     "North America": "#b0202c",
     "Africa": "#6c3a9b",
     "Oceania": "#0b86a8",
+    "South America": "#8a8a00",
 }
-REG_ORDER = ["Europe", "Middle East", "Asia", "North America", "Africa", "Oceania"]
+REG_ORDER = ["Europe", "Middle East", "Asia", "North America", "Africa", "Oceania", "South America"]
 CONT = {"Europe": "Europe", "Middle East": "Asia", "Asia": "Asia", "North America": "North America",
         "Africa": "Africa", "Oceania": "Oceania", "South America": "South America"}
 
@@ -124,10 +125,6 @@ def smoke(c, x, y, n, r0, grow, dx, dy, cols):
         c.circ(x + dx * i, y + dy * i, r, cols[i % len(cols)])
 
 
-MAPLE = [(0, -10), (2, -6), (4, -7), (3.5, -2), (7, -4), (6, -1), (9, 0), (5, 3), (6, 5), (1.5, 4), (1.5, 9),
-         (-1.5, 9), (-1.5, 4), (-6, 5), (-5, 3), (-9, 0), (-6, -1), (-7, -4), (-3.5, -2), (-4, -7), (-2, -6)]
-
-
 def pole(c, x, y0, y1, col="#4a4338"):
     c.rect(x - 0.9, y0, x + 0.9, y1, col)
     c.circ(x, y0, 1.8, "#d9b43a")
@@ -166,20 +163,6 @@ def f_au(c, x, y, w=36, h=24):
     c.line([(x, y + h * .25), (x + w * .5, y + h * .25)], "#cf142b", 1.2)
     for sx, sy in [(.25, .78), (.72, .25), (.82, .55), (.65, .82), (.9, .85)]:
         c.circ(x + w * sx, y + h * sy, 1.3, "#ffffff")
-
-
-def f_ca(c, x, y, w=36, h=24):
-    c.rect(x, y, x + w, y + h, "#ffffff")
-    c.rect(x, y, x + w * 0.25, y + h, "#d52b1e")
-    c.rect(x + w * 0.75, y, x + w, y + h, "#d52b1e")
-    c.poly([(x + w / 2 + px * h / 28, y + h / 2 + py * h / 28) for px, py in MAPLE], "#d52b1e")
-
-
-def f_cn(c, x, y, w=36, h=24):
-    c.rect(x, y, x + w, y + h, "#de2910")
-    c.poly(star(x + w * .17, y + h * .3, h * .2, h * .08, 5), "#ffde00")
-    for sx, sy in [(.34, .12), (.4, .26), (.4, .42), (.34, .55)]:
-        c.poly(star(x + w * sx, y + h * sy, h * .06, h * .025, 5), "#ffde00")
 
 
 def f_ht(c, x, y, w=36, h=24):
@@ -419,31 +402,39 @@ def sc_alaska(c, W_):
     c.poly(star(bx, 82, 7, 3, 5), "#f3e9c3")
 
 
-def sc_trade(c, W_):
+def sc_serbia(c, W_):
     cx = W_ / 2
-    c.rect(0, 0, W_, 100, "#cfe0ea")
-    c.rect(0, 84, W_, 100, "#486783")
-    c.rect(0, 82, W_, 85, "#6c8aa4")
-    for i, f in enumerate([f_ca, f_cn]):
-        x = cx - 125 + i * 86
-        pole(c, x, 34, 84)
-        f(c, x + 1, 36, 40, 26)
-    # containers stacked
-    cc = ["#c9482c", "#2f6fae", "#d9a63a", "#3a8a5a", "#8a5a9e", "#c9482c"]
-    k = 0
-    for row, n in enumerate([4, 3, 2]):
-        for i in range(n):
-            x = cx + 2 + i * 30 + row * 15
-            y = 84 - (row + 1) * 14
-            c.rect(x, y, x + 28, y + 13, cc[k % 6], "#1f2a36", 0.7)
-            for j in range(1, 5):
-                c.line([(x + j * 5.6, y + 1), (x + j * 5.6, y + 12)], "#1f2a36", 0.4)
-            k += 1
-    # down arrow with tariff %
-    ax = cx + 132
-    c.poly([(ax - 9, 40), (ax + 9, 40), (ax + 9, 58), (ax + 19, 58), (ax, 76), (ax - 19, 58), (ax - 9, 58)], "#1c8a4a", "#0f5a2e", 1)
-    c.circ(ax - 2, 38, 9, "#f3ead3", "#1f2a36", 1)
-    c.text(ax - 2, 38.5, "%", "sb", 13, "#1f2a36", "mm")
+    c.rect(0, 0, W_, 100, "#d3dde8")
+    c.rect(0, 0, W_, 40, "#e2eaf1")
+    c.rect(0, 92, W_, 100, "#8e8f94")
+    # parliament building (left): steps, columns, pediment, drum and dome
+    bx = cx - 120
+    c.rect(bx - 74, 88, bx + 74, 92, "#a9a69c")
+    c.rect(bx - 68, 84, bx + 68, 88, "#bdb9ad")
+    c.rect(bx - 62, 66, bx + 62, 84, "#eee7d6", "#6f6a5c", 0.7)
+    for i in range(9):
+        x = bx - 56 + i * 14
+        c.rect(x, 69, x + 5, 84, "#fbf7ec", "#8a8470", 0.5)
+    c.poly([(bx - 66, 66), (bx, 55), (bx + 66, 66)], "#e4dcc6", "#6f6a5c", 0.8)
+    c.rect(bx - 15, 52, bx + 15, 61, "#e9e2d0", "#6f6a5c", 0.7)
+    c.poly([(bx - 16 + 32 * i / 12, 52 - 12 * math.sin(math.pi * i / 12)) for i in range(13)] + [(bx + 16, 52), (bx - 16, 52)], "#7c8aa3", "#4a5568", 0.8)
+    c.rect(bx - 0.8, 36, bx + 0.8, 42, "#4a4338")
+    # hemicycle (right): 140 student-list seats vs 103 others
+    ax, ay = cx + 95, 97
+    c.poly([(ax + 60 * math.cos(math.pi * i / 40), ay - 60 * math.sin(math.pi * i / 40)) for i in range(41)], "#26324d")
+    radii = [17 + 5.4 * i for i in range(8)]
+    total = 243
+    counts = [round(total * r / sum(radii)) for r in radii]
+    counts[-1] += total - sum(counts)
+    seats = []
+    for r, n in zip(radii, counts):
+        for k in range(n):
+            seats.append((math.pi * (1 - k / (n - 1)), r))
+    seats.sort(key=lambda t: (-round(t[0], 4), t[1]))
+    assert len(seats) == 243
+    for i, (ang, r) in enumerate(seats):
+        c.circ(ax + r * math.cos(ang), ay - r * math.sin(ang), 1.7, "#f2b705" if i < 140 else "#9fb0d0")
+    c.rect(ax - 13, ay - 10, ax + 13, ay - 3, "#6a7898")  # speaker's desk
 
 
 def sc_plane(c, W_):
@@ -461,7 +452,7 @@ def sc_plane(c, W_):
         c.poly([(x, y - h), (x - h * .35, y), (x + h * .35, y)], "#2f5a44")
         c.poly([(x, y - h), (x - h * .17, y - h * .45), (x + h * .17, y - h * .45)], "#eef3f5")
     # smoke trail
-    smoke(c, cx + 40, 42, 9, 3, 0.9, -9, -3.5, ["#5e5f66", "#74757c", "#4c4d54"])
+    smoke(c, cx + 40, 44, 7, 3, 0.9, -9, -3.2, ["#5e5f66", "#74757c", "#4c4d54"])
     # plane (top-down, tilted nose-down)
     px, py = cx + 62, 64
     pl = []
@@ -634,7 +625,7 @@ SCENES = {
     4: (sc_quad, "QUAD: CRITICAL MINERALS", "tl", None, None),
     5: (sc_measles, "MEASLES: STATUS LOST", "tl", "US - MEXICO - BOLIVIA", "br"),
     6: (sc_alaska, "PELTOLA WINS", "tl", None, None),
-    7: (sc_trade, "TARIFF RELIEF", "tl", None, None),
+    7: (sc_serbia, "STUDENT LIST: 140 OF 250", "tl", None, None),
     8: (sc_plane, "19 KILLED", "tl", None, None),
     9: (sc_bangladesh, "WAGE PROTEST", "tr", None, None),
     10: (sc_mongolia, "PRESIDENT RESIGNS", "tl", None, None),
@@ -653,7 +644,7 @@ def draw_plate(im, w, h, text, pos, px):
     y = 4 if pos[0] == "t" else h - 4 - ph
     c.rrect(x, y, x + pw, y + ph, 3, "#fffaf0", "#17130e", 1.2)
     c.d.text(((x + 5) * S, (y + ph / 2) * S + 1), text, font=f, fill="#17130e", anchor="lm")
-    CHECKS.append((text, (x, y, x + pw, y + ph), (0, 0, w, h)))
+    CHECKS.append(("plate:" + text, (x, y, x + pw, y + ph), (0, 0, w, h)))  # panel-local coordinates
 
 
 def make_panel(story, w, h, k_plate_px):
@@ -692,55 +683,21 @@ def fit_head(text, width, sizes, maxlines, fname="gb"):
     raise AssertionError(("headline cannot fit", text, width, sizes[-1], maxlines))
 
 
-def clause_cuts(text):
-    cuts = []
-    for i, ch in enumerate(text):
-        if ch in ".;,:" and (i + 1 == len(text) or text[i + 1] == " "):
-            cuts.append(i + 1)
-    return cuts
+def fit_sub(text, width, sizes, room):
+    """Largest size whose whole text fits `room` px of height; else the leading whole sentences;
+    else nothing. Returns (px, lines); lines == [] drops the sub line (the headline stays)."""
+    sents = [text[:i + 1] for i, ch in enumerate(text) if ch == "." and (i + 1 == len(text) or text[i + 1] == " ")]
+    for cand in [text] + list(reversed(sents[:-1])):
+        for px in sizes:
+            ml = int(room // (px * 1.17))
+            if ml >= 1:
+                lines = wrap(cand, "s", px, width)
+                if len(lines) <= ml:
+                    return px, lines
+    return sizes[-1], []
 
 
-def fit_sub(text, width, sizes, maxlines):
-    if maxlines <= 0:
-        return None, []
-    for px in sizes:
-        lines = wrap(text, "s", px, width)
-        if len(lines) <= maxlines:
-            return px, lines
-    px = sizes[-1]
-    best = None
-    for cut in reversed(clause_cuts(text)):
-        part = text[:cut].rstrip()
-        if part.endswith((",", ";", ":")):
-            part = part[:-1] + "\u2026"
-        lines = wrap(part, "s", px, width)
-        if len(lines) <= maxlines and len(part) >= 0.45 * len(text):
-            best = lines
-            break
-    if best is None:
-        words = text.split()
-        for n in range(len(words), 0, -1):
-            part = " ".join(words[:n]).rstrip(",;:.") + "\u2026"
-            lines = wrap(part, "s", px, width)
-            if len(lines) <= maxlines:
-                best = lines
-                break
-    return px, best
-
-
-# ---------------------------------------------------------------- briefs: shortening candidates
-BRIEF_ALT = {
-    14: ["UK sanctions eight Israeli firms over West Bank settlements", "UK sanctions eight Israeli firms over settlements"],
-    17: ["Yemen's parliament votes to label the Houthis terrorists", "Yemen's parliament labels Houthis terrorists"],
-    18: ["France and Malaysia sign defence, energy and tech pact", "France, Malaysia sign defence, energy, tech pact"],
-    22: ["US: Pakistani man gets 27 years in Iran-backed Trump plot", "US: Pakistani gets 27 years in Iran-backed Trump plot"],
-    23: ["Ireland: man charged over damaged $60m US military plane", "Ireland: man charged over damaged $60m US plane"],
-    24: ["UK: US Army officer held on spying suspicion moved to US custody", "UK: US officer held over spying moved to US custody"],
-    25: ["North Macedonia arrests five over alleged plot in Greece", "N. Macedonia arrests five over alleged Greece plot"],
-    29: ["Five EU states revive plans to deport migrants to Rwanda", "EU: five states revive Rwanda deportation plans"],
-    35: ["US: Fed's Lisa Cook refuses to attend White House hearing", "US: Fed's Lisa Cook won't attend White House hearing", "US: Fed's Lisa Cook skips White House hearing"],
-    34: ["South Korea: AI smart glasses raise exam cheating fears", "S. Korea: AI smart glasses raise exam cheating fears"],
-}
+SUBLOG = []
 
 
 # ---------------------------------------------------------------- map
@@ -774,6 +731,7 @@ def proj(lon, lat, box):
 # ---------------------------------------------------------------- main render
 def render():
     CHECKS.clear()
+    SUBLOG.clear()
     rows = load()
     ids = [r["id"] for r in rows]
     assert len(ids) == len(set(ids)), "ids not unique"
@@ -782,6 +740,7 @@ def render():
     N = len(rows)
     conts = {CONT[r["region"]] for r in rows if r.get("pin")}
     C = len(conts)
+    F = len({r["field"] for r in rows})
     assert len(leads) == 12
     regcount = {k: sum(1 for r in rows if r["region"] == k) for k in REG_ORDER}
     assert sum(regcount.values()) == N
@@ -819,21 +778,18 @@ def render():
         hp += 1
     put("headline-date", hl, "gb", hp, M - 1, 19, "la", (M - 2, 0, W - M + 2, 110))
     rowy = int(19 + hp * 1.07) + 5
-    # legend (left) and count (right)
+    # legend (full width) ; count line shares the kicker row on the right
     lx = M
-    lf = font("sb", 12)
     for rg in REG_ORDER:
         c.rect(lx, rowy + 3, lx + 10, rowy + 13, REG[rg])
         lab = f"{rg} {regcount[rg]}"
         put.fill = INK
         wlab = put("legend " + rg, lab, "sb", 12, lx + 14, rowy, "la", (M, rowy - 2, W - M, rowy + 20))
-        lx += 14 + wlab + 12
-    legend_end = lx
-    cnt = f"{N} stories \u00b7 {C} continents \u00b7 all from Tuesday"
-    cw_ = tw("sb", 14.5, cnt)
+        lx += 14 + wlab + 14
+    assert lx - 14 <= W - M, ("legend too wide", lx)
+    cnt = f"{N} stories · {C} continents · {F} fields · all from Tuesday"
     put.fill = INK
-    put("count line", cnt, "sb", 14.5, W - M, rowy - 1, "ra", (M, rowy - 3, W - M, rowy + 20))
-    assert legend_end < W - M - cw_ - 8, ("legend collides with count line", legend_end, W - M - cw_)
+    put("count line", cnt, "sb", 14.5, W - M, 11, "ra", (M, 0, W, 34))
     # tally bar
     by = rowy + 17
     bx = M
@@ -853,20 +809,24 @@ def render():
     put.fill = SOFT
     put("footer", foot, "s", fpx, W / 2, H - 19, "ma", (M, H - 22, W - M, H))
 
-    # ---- bottom band geometry
+    # ---- bottom band geometry: map + field list (left), briefs in two columns (right)
+    BPX = 12
+    ROWH = 13.6
     nrows = (len(briefs) + 1) // 2
-    ROWH = 14.3
-    band_h = 16 + nrows * ROWH + 4
+    maxw = max(tw("s", BPX, b_["head"]) for b_ in briefs)
+    colw = 19 + maxw + 8
+    map_w = CW - 2 * colw - 16
+    assert map_w >= 280, ("map too small", map_w)
+    band_h = 18 + nrows * ROWH + 4
     band_top = H - 24 - band_h
     c.rect(M, band_top - 4, W - M, band_top - 3, INK)
 
     # ---- tiles
-    G = 7
+    G = 6
     tw_ = (CW - 2 * G) / 3
-    big_h = 192
-    avail = band_top - 10 - top_tiles - big_h - 3 * G
+    big_h = 170
+    avail = band_top - 9 - top_tiles - big_h - 3 * G
     small_h = avail / 3
-    ty = top_tiles
     for i, st in enumerate(leads):
         if i < 3:
             col, row, th = i, 0, big_h
@@ -879,8 +839,8 @@ def render():
         reg = REG[st["region"]]
         tile = (x0, y0, x0 + tw_, y0 + th)
         # panel
-        SH = 17
-        ph = 86 if big else 71
+        SH = 17 if big else 16
+        ph = 74 if big else 68
         pimg = make_panel(st, round(tw_), ph, 12)
         im.paste(pimg, (round(x0 * S), round(y0 * S)))
         c.rect(x0, y0 + ph, x0 + tw_, y0 + ph + SH, reg)
@@ -894,7 +854,7 @@ def render():
         lab = f"{st['region'].upper()} · {st['beat']}"
         put(f"label {st['id']}", lab, "sb", 11, x0 + 6 + 2 * br + 6, y0 + ph + SH / 2 + 0.5, "lm", tile)
         ty_ = y0 + ph + SH + 3
-        # headline
+        # headline (whole, wrapped by words, never truncated)
         inner = tw_ - 12
         if big:
             try:
@@ -908,87 +868,90 @@ def render():
         for j, ln in enumerate(hlines):
             put(f"head {st['id']}.{j}", ln, "gb", hpx, x0 + 6, ty_ + j * lh, "la", tile)
         ty_ += len(hlines) * lh + 1.5
-        # sub
-        spx_l = [11.5, 11, 10.5, 10]
-        remaining = (y0 + th - 2) - ty_
-        sizes_ok = None
-        for spx in spx_l:
-            ml = int(remaining // (spx * 1.17))
-            p, lines = fit_sub(st["sub"], inner, [spx], ml)
-            if lines and not lines[-1].endswith("\u2026") and p == spx and len(lines) <= ml:
-                sizes_ok = (p, lines)
-                break
-        if sizes_ok is None:
-            spx = 10
-            ml = int(remaining // (spx * 1.17))
-            sizes_ok = fit_sub(st["sub"], inner, [spx], ml)
-        sp, slines = sizes_ok
-        if slines and slines[-1].endswith("…"):
-            print("TRUNCATED sub", st["id"], slines)
-        assert sp is None or sp >= 10
+        # sub: whole text, else leading whole sentences, else dropped (never an ellipsis, never < 10.5 px)
+        sp, slines = fit_sub(st["sub"], inner, [11.5, 11, 10.5], (y0 + th - 2.5) - ty_)
         put.fill = SOFT
-        for j, ln in enumerate(slines or []):
+        for j, ln in enumerate(slines):
             put(f"sub {st['id']}.{j}", ln, "s", sp, x0 + 6, ty_ + j * sp * 1.17, "la", tile)
+        SUBLOG.append((st["id"], len(slines)))
 
     # ---- map
     put.fill = INK
-    map_w = 320
-    box = (M, band_top + 16, M + map_w, band_top + 16 + map_w * (MAPBOX[3] - MAPBOX[1]) / (MAPBOX[2] - MAPBOX[0]))
+    box = (M, band_top + 18, M + map_w, band_top + 18 + map_w * (MAPBOX[3] - MAPBOX[1]) / (MAPBOX[2] - MAPBOX[0]))
     put("map title", "WHERE IT HAPPENED", "sb", 12, M, band_top, "la", (M, band_top - 3, M + map_w, band_top + 16))
-    put.fill = SOFT
-    put("map key", "numbered = lead story \u00b7 dot = brief", "s", 11, M + map_w, band_top + 1, "ra", (M, band_top - 3, M + map_w + 1, band_top + 16))
+    c.rect(M + 150, band_top + 7, M + map_w, band_top + 8, "#a99d82")
     c.rect(*box, "#dfe8e6", "#8c8068", 0.8)
     mb = box
     for nm, pts in LAND.items():
         c.d.polygon([(proj(lo, la, mb)[0] * S, proj(lo, la, mb)[1] * S) for lo, la in pts], fill="#cbc09f", outline="#9d9172")
-    # graticule hints
     for lon in (-120, -60, 0, 60, 120):
         px_, _ = proj(lon, 0, mb)
         c.line([(px_, mb[1]), (px_, mb[3])], "#cfd9d6", 0.5)
-    for rr in sorted(rows, key=lambda r: r["lead"]):
+    pins = {}
+    for rr in rows:
         lon, lat = rr["pin"]
-        x_, y_ = proj(lon, lat, mb)
         assert MAPBOX[0] <= lon <= MAPBOX[2] and MAPBOX[1] <= lat <= MAPBOX[3], ("pin outside map", rr["id"])
-        col = REG[rr["region"]]
-        if rr["lead"]:
-            continue
-        c.circ(x_, y_, 3.0, col, "#ffffff", 0.8)
+        pins[rr["id"]] = proj(lon, lat, mb)
+    # briefs are dots; nudge a dot away only where it would hide under another marker
+    LEADR = 7.2
+    lead_pts = [pins[r_["id"]] for r_ in leads]
+    dots = []
+    for rr in briefs:
+        ox_, oy_ = pins[rr["id"]]
+        x_, y_ = ox_, oy_
+        for step in range(60):
+            if all(math.hypot(x_ - qx, y_ - qy) >= LEADR + 3.4 for qx, qy in lead_pts) and \
+               all(math.hypot(x_ - qx, y_ - qy) >= 6.6 for qx, qy in dots):
+                break
+            ang = math.radians(137.5 * (step + 1) + rr["id"] * 40)
+            x_ = ox_ + 0.5 * (step + 1) * math.cos(ang)
+            y_ = oy_ + 0.5 * (step + 1) * math.sin(ang)
+        x_ = min(max(x_, mb[0] + 4), mb[2] - 4)
+        y_ = min(max(y_, mb[1] + 4), mb[3] - 4)
+        pins[rr["id"]] = (x_, y_)
+        dots.append((x_, y_))
+        c.circ(x_, y_, 3.0, REG[rr["region"]], "#ffffff", 0.8)
     for rr in leads:
-        lon, lat = rr["pin"]
-        x_, y_ = proj(lon, lat, mb)
-        col = REG[rr["region"]]
-        r_ = 7.2
-        c.circ(x_, y_, r_, col, "#ffffff", 1.2)
+        x_, y_ = pins[rr["id"]]
+        c.circ(x_, y_, LEADR, REG[rr["region"]], "#ffffff", 1.2)
         put.fill = "#ffffff"
         put(f"pin {rr['id']}", str(rr["id"]), "sb", 10, x_, y_ + 0.4, "mm", mb)
-    ky = box[3] + 6
+    ky = box[3] + 5
     put.fill = SOFT
-    put("map note 1", "Numbered circle = lead story (same number as its tile).", "s", 11.5, M, ky, "la", (M, ky - 2, M + map_w + 2, ky + 16))
-    put("map note 2", "Small dot = brief, listed at right (13-35). Colour = region.", "s", 11.5, M, ky + 14, "la", (M, ky + 12, M + map_w + 2, ky + 30))
+    n1, n2 = briefs[0]["id"], briefs[-1]["id"]
+    notes = wrap(f"Numbered circle = lead story, same number as its tile. Small dot = brief ({n1}-{n2}), listed at right. Colour = region.", "s", 12, map_w)
+    for j, ln in enumerate(notes):
+        put(f"map note {j}", ln, "s", 12, M, ky + j * 14, "la", (M, ky - 2, M + map_w + 2, ky + 14 * (j + 1) + 2))
+    fy = ky + 14 * len(notes) + 8
+    # fields tally
+    fcount = {}
+    for r_ in rows:
+        fcount[r_["field"]] = fcount.get(r_["field"], 0) + 1
+    put.fill = INK
+    put("fields title", "STORIES BY FIELD", "sb", 12, M, fy, "la", (M, fy - 2, M + map_w, fy + 16))
+    c.rect(M + 112, fy + 7, M + map_w, fy + 8, "#a99d82")
+    fx, fy2 = M, fy + 17
+    put.fill = SOFT
+    for fld, n_ in sorted(fcount.items(), key=lambda kv: (-kv[1], kv[0])):
+        item = f"{fld} {n_}"
+        iw = tw("s", 12, item)
+        if fx + iw > M + map_w:
+            fx, fy2 = M, fy2 + 14
+        put(f"field {fld}", item, "s", 12, fx, fy2, "la", (M, fy - 2, M + map_w + 2, band_top + band_h))
+        fx += iw + 11
     # ---- briefs
-    rx = M + map_w + 18
-    colw = (W - M - rx) / 2
+    rx = M + map_w + 16
     put.fill = INK
     put("briefs title", "ALSO ON TUESDAY 17 NOVEMBER", "sb", 12, rx, band_top, "la", (rx, band_top - 3, W - M, band_top + 16))
     c.rect(rx + 215, band_top + 7, W - M, band_top + 8, "#a99d82")
     for i, b in enumerate(briefs):
         colx = rx + (i // nrows) * colw
-        yy = band_top + 17 + (i % nrows) * ROWH
-        reg = REG[b["region"]]
-        num = str(b["id"])
-        put.fill = reg
-        nw = put(f"brief num {b['id']}", num, "sb", 12.5, colx, yy, "la", (colx, yy - 2, colx + colw, yy + ROWH + 2))
-        cands = [b["head"]] + BRIEF_ALT.get(b["id"], [])
-        avail_w = colw - 4 - 19
-        chosen = None
-        for cd in cands:
-            if tw("s", 12.5, cd) <= avail_w:
-                chosen = cd
-                break
-        assert chosen, ("brief too long", b["id"], b["head"], [tw("s", 12.5, cd) for cd in cands], avail_w)
+        yy = band_top + 18 + (i % nrows) * ROWH
+        put.fill = REG[b["region"]]
+        put(f"brief num {b['id']}", str(b["id"]), "sb", BPX, colx, yy, "la", (colx, yy - 1.5, colx + colw, yy + ROWH + 3.5))
         put.fill = INK
-        put(f"brief {b['id']}", chosen, "s", 12.5, colx + 19, yy, "la", (colx, yy - 2, colx + colw - 4, yy + ROWH + 2))
-    return im, dict(N=N, C=C, leads=len(leads), briefs=len(briefs), rows=rows)
+        put(f"brief {b['id']}", b["head"], "s", BPX, colx + 19, yy, "la", (colx, yy - 1.5, colx + colw - 2, yy + ROWH + 3.5))
+    return im, dict(N=N, C=C, F=F, leads=len(leads), briefs=len(briefs), rows=rows)
 
 
 def self_check(info):
@@ -997,6 +960,14 @@ def self_check(info):
     for label, (x0, y0, x1, y1), (cx0, cy0, cx1, cy1) in CHECKS:
         assert x0 >= cx0 - 0.6 and y0 >= cy0 - 0.6 and x1 <= cx1 + 0.6 and y1 <= cy1 + 0.6, \
             ("text exceeds container", label, (round(x0, 1), round(y0, 1), round(x1, 1), round(y1, 1)), (cx0, cy0, cx1, cy1))
+    # no two text boxes overlap
+    boxes = [(l, b) for l, b, _ in CHECKS if not l.startswith("plate:")]
+    for i in range(len(boxes)):
+        for j in range(i + 1, len(boxes)):
+            (la, a), (lb, b) = boxes[i], boxes[j]
+            ox = min(a[2], b[2]) - max(a[0], b[0])
+            oy = min(a[3], b[3]) - max(a[1], b[1])
+            assert not (ox > 0.4 and oy > 0.4), ("text boxes overlap", la, lb)
     return len(CHECKS)
 
 
@@ -1005,7 +976,7 @@ def main():
     im, info = render()
     n = self_check(info)
     small = im.resize((W, H), Image.LANCZOS)
-    pal = small.quantize(colors=200, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE)
+    pal = small.quantize(colors=256, method=Image.Quantize.FASTOCTREE, dither=Image.Dither.NONE)
     pal.save(out, format="PNG", optimize=True)
     print(f"ok: {info['N']} stories, {info['C']} continents, {n} text boxes checked -> {out} ({os.path.getsize(out)} bytes)")
 
