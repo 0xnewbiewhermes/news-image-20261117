@@ -629,7 +629,7 @@ def sc_court(c, W_):
 # (scene fn, plate1, plate1 pos, plate2, plate2 pos)
 SCENES = {
     1: (sc_bridge, "CRIMEAN BRIDGE: SPAN DOWN", "tl", None, None),
-    2: (sc_bahrain, "BAHRAIN: DRONES STOPPED", "tl", None, None),
+    2: (sc_bahrain, "BAHRAIN SAYS: DRONES STOPPED", "tl", None, None),
     3: (sc_jericho, "JERICHO: 1 KILLED, 10 WOUNDED", "tl", None, None),
     4: (sc_quad, "QUAD: CRITICAL MINERALS", "tl", None, None),
     5: (sc_measles, "MEASLES: STATUS LOST", "tl", "US - MEXICO - BOLIVIA", "br"),
