@@ -857,13 +857,22 @@ def render():
         c.rect(x0, y0 + ph, x0 + tw_, y0 + ph + SH, reg)
         c.rect(x0, y0, x0 + tw_, y0 + th, None, "#a99d82", 0.8)
         # number badge + label strip
-        br = 7.2
+        br = SH / 2 - 0.6
         c.circ(x0 + 6 + br, y0 + ph + SH / 2, br, "#ffffff")
         put.fill = reg
         put(f"badge {st['id']}", str(st["id"]), "sb", 11.5, x0 + 6 + br, y0 + ph + SH / 2 + 0.5, "mm", tile)
         put.fill = "#ffffff"
         lab = f"{st['region'].upper()} · {st['beat']}"
-        put(f"label {st['id']}", lab, "sb", 12, x0 + 6 + 2 * br + 6, y0 + ph + SH / 2 + 0.5, "lm", tile)
+        lx0 = x0 + 6 + 2 * br + 6
+        lw = put(f"label {st['id']}", lab, "sb", 12, lx0, y0 + ph + SH / 2 + 0.5, "lm", tile)
+        # source tag, right-aligned in the strip; full src if it fits with >= 8 px gap, else first source
+        strip = (x0, y0 + ph, x0 + tw_, y0 + ph + SH)
+        tag_room = (x0 + tw_ - 6) - (lx0 + lw + 8)
+        tag = st["src"]
+        if tw("sb", 11, tag) > tag_room:
+            tag = tag.split(",")[0].strip()
+        assert tw("sb", 11, tag) <= tag_room, ("source tag does not fit strip", st["id"], tag, tag_room)
+        put(f"src tag {st['id']}", tag, "sb", 11, x0 + tw_ - 6, y0 + ph + SH / 2 + 0.5, "rm", strip)
         ty_ = y0 + ph + SH + 3
         # headline (whole, wrapped by words, never truncated)
         lh = hpx * 1.1
@@ -935,7 +944,7 @@ def render():
     for j, ln in enumerate(notes):
         put(f"map note {j}", ln, "s", 12, M, ky + j * 14, "la", (M, ky - 2, M + map_w + 2, ky + 14 * (j + 1) + 2))
     dpx = 12
-    dnote = wrap("Date check: left out because it was reported earlier - DR Congo's Ebola toll passing 11,000 (11 November).", "s", dpx, map_w)
+    dnote = ["Date check: earlier-dated stories are left out;", "every item here was reported on 17 November 2026."]
     dy0 = ky + 14 * len(notes) + 3
     put.fill = INK
     for j, ln in enumerate(dnote):
