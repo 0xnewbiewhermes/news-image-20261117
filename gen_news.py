@@ -166,25 +166,6 @@ def f_au(c, x, y, w=36, h=24):
         c.circ(x + w * sx, y + h * sy, 1.3, "#ffffff")
 
 
-def f_ht(c, x, y, w=36, h=24):
-    c.rect(x, y, x + w, y + h / 2, "#00209f")
-    c.rect(x, y + h / 2, x + w, y + h, "#d21034")
-    c.rect(x + w * .38, y + h * .36, x + w * .62, y + h * .64, "#ffffff")
-    c.circ(x + w / 2, y + h / 2, h * .08, "#2a8a2a")
-
-
-def f_sv(c, x, y, w=36, h=24):
-    c.rect(x, y, x + w, y + h, "#0f47af")
-    c.rect(x, y + h / 3, x + w, y + 2 * h / 3, "#ffffff")
-    c.circ(x + w / 2, y + h / 2, h * .08, "#8aa63a")
-
-
-def f_mn(c, x, y, w=36, h=24):
-    c.rect(x, y, x + w, y + h, "#da2032")
-    c.rect(x + w / 3, y, x + 2 * w / 3, y + h, "#0066b3")
-    c.circ(x + w / 6, y + h * .5, h * .12, "#ffd900")
-
-
 def waves(c, W_, y0, y1, col, step=14):
     for i in range(int(W_ // step) + 1):
         for yy in range(int(y0), int(y1), 9):
@@ -534,63 +515,70 @@ def sc_bangladesh(c, W_):
     c.line([(cx + 83, 63), (cx + 98, 63)], "#2a2622", 1.4)
 
 
-def sc_mongolia(c, W_):
+def sc_cyclone(c, W_):
     cx = W_ / 2
-    c.rect(0, 0, W_, 100, "#8fc0e3")
-    c.rect(0, 0, W_, 40, "#a9d1ee")
-    c.circ(cx + 140, 40, 7, "#fff0b0")
-    c.poly([(0, 70), (60, 58), (140, 66), (230, 56), (W_, 66), (W_, 100), (0, 100)], "#7aa65a")
-    c.rect(0, 84, W_, 100, "#6a9650")
-    # state building
-    bx = cx + 15
-    c.rect(bx, 62, bx + 90, 90, "#e9e2d0", "#6f6a5c", 0.8)
-    c.poly([(bx - 4, 62), (bx + 45, 46), (bx + 94, 62)], "#d9d1bb", "#6f6a5c", 0.8)
+    c.rect(0, 0, W_, 100, "#0e2a52")
+    c.rect(0, 0, W_, 52, "#16345f")
+    # sea
+    c.rect(0, 76, W_, 100, "#1c4f86")
+    waves(c, W_, 78, 100, "#3f7db8")
+    sx, sy = cx + 24, 52
+    # spiral cloud: concentric arms of cloud blobs around a dark eye
+    for ring, (r0, col) in enumerate([(33, "#8aa2c4"), (26, "#a9bdd8"), (19, "#c6d4e8"), (12, "#e3ebf6")]):
+        for i in range(30):
+            a = math.radians(i * 12 + ring * 40) + (r0 / 12.0)
+            rr = r0 * (0.5 + 0.5 * i / 30.0)
+            c.circ(sx + rr * math.cos(a), sy + rr * math.sin(a), 8.5 - ring * 1.2, col)
+    c.circ(sx, sy, 6, "#0e2a52")
+    c.circ(sx, sy, 2.6, "#16345f")
+    # wind arrows streaming past on the right
+    for (ax, ay) in [(cx + 66, 44), (cx + 62, 62)]:
+        c.line([(ax, ay), (ax + 24, ay - 5), (ax + 46, ay + 1)], "#ffffff", 2.2)
+        c.poly([(ax + 52, ay + 2), (ax + 41, ay - 4), (ax + 42, ay + 7)], "#ffffff")
+    ax_ = cx - 70
+    c.poly([(ax_ - 50, 90), (ax_ - 34, 81), (ax_ + 34, 81), (ax_ + 52, 90)], "#e8d9a0", "#a8965c", 0.8)
+    c.line([(ax_ - 56, 91), (ax_ - 30, 93), (ax_ + 58, 91)], "#9cc7ea", 1.4)
+    for px_, ph_, lean in [(ax_ - 14, 30, -5), (ax_ + 12, 26, 6)]:
+        top = (px_ + lean, 81 - ph_)
+        c.line([(px_, 82), (px_ + lean * 0.3, 81 - ph_ * 0.5), top], "#5b4326", 2)
+        for da in (-165, -130, -90, -50, -15):
+            ang = math.radians(da)
+            c.line([top, (top[0] + 14 * math.cos(ang), top[1] + 10 * math.sin(ang) + 6)], "#2f8a4a", 2.4)
+
+
+def sc_court(c, W_):
+    cx = W_ / 2
+    c.rect(0, 0, W_, 100, "#d9e2ee")
+    c.rect(0, 0, W_, 40, "#e7edf5")
+    c.rect(0, 88, W_, 100, "#9a9484")
+    bx = cx + 16
+    # courthouse: steps, columns, pediment
+    c.rect(bx - 66, 90, bx + 66, 100, "#bdb7a6")
+    c.rect(bx - 62, 84, bx + 62, 90, "#cfc9b8")
+    c.rect(bx - 58, 48, bx + 58, 84, "#f1ecde", "#8a8370", 0.8)
+    c.poly([(bx - 64, 48), (bx, 30), (bx + 64, 48)], "#e4ddc9", "#8a8370", 0.9)
+    c.circ(bx, 42, 4, "#c9b36a", "#8a8370", 0.6)
     for i in range(6):
-        c.rect(bx + 6 + i * 14, 64, bx + 10 + i * 14, 88, "#bdb59e")
-    c.rect(bx + 38, 74, bx + 52, 90, "#6f5a3c")
-    pole(c, bx + 45, 24, 46)
-    f_mn(c, bx + 46, 25, 22, 14)
-    # ger
-    gx = cx - 95
-    c.rect(gx - 30, 66, gx + 30, 90, "#f2eddf", "#8a8372", 0.8)
-    c.poly([(gx - 34, 66), (gx, 44), (gx + 34, 66)], "#fbf8ee", "#8a8372", 0.8)
-    c.rect(gx - 7, 74, gx + 7, 90, "#b0202c")
-    c.line([(gx - 7, 82), (gx + 7, 82)], "#d9b43a", 1)
-    c.line([(gx - 30, 71), (gx + 30, 71)], "#2f5ea8", 1.4)
-    c.circ(gx, 44, 3, "#2f5ea8")
-    # envelope icon
-    ex, ey = cx - 22, 70
-    c.rect(ex - 24, ey - 3, ex + 24, ey + 25, "#fffdf2", "#2a2622", 1.2)
-    c.line([(ex - 24, ey - 3), (ex, ey + 12), (ex + 24, ey - 3)], "#2a2622", 1.2)
-    c.circ(ex, ey + 12, 4.2, "#b0202c")
-
-
-def sc_haiti(c, W_):
-    cx = W_ / 2
-    c.rect(0, 0, W_, 100, "#f0d9a8")
-    c.rect(0, 0, W_, 38, "#f7e6c0")
-    # hills + buildings
-    c.poly([(0, 58), (50, 46), (120, 56), (190, 44), (W_, 56), (W_, 100), (0, 100)], "#b9b77c")
-    for i, x in enumerate(range(-150, 160, 24)):
-        c.rect(cx + x, 60 - (i * 7 % 9), cx + x + 20, 82, ["#d9a98a", "#c98d70", "#e6c08a", "#b87a5f"][i % 4])
-        c.rect(cx + x + 4, 66, cx + x + 8, 71, "#6b4a38")
-    c.rect(0, 86, W_, 100, "#6b6256")
-    # marchers
-    cols = ["#2a2622", "#3b3631", "#463e36"]
-    xs = [-110, -88, -66, -44, -22, 0, 22, 44, 66, 88, 110, 132]
-    for i, x in enumerate(xs):
-        person(c, cx + x, 96, 38 + (i % 3) * 3, cols[i % 3])
-    # banners
-    c.line([(cx - 96, 58), (cx - 96, 82)], "#6b5a3e", 1.4)
-    c.line([(cx - 10, 58), (cx - 10, 82)], "#6b5a3e", 1.4)
-    c.rrect(cx - 98, 50, cx - 8, 66, 2, "#fffdf2", "#2a2622", 1)
-    c.line([(cx - 90, 55), (cx - 20, 55)], "#2a2622", 1.6)
-    c.line([(cx - 90, 61), (cx - 40, 61)], "#2a2622", 1.6)
-    # flags held up
-    pole(c, cx + 36, 34, 70)
-    f_ht(c, cx + 37, 36, 36, 24)
-    pole(c, cx + 100, 38, 70)
-    f_sv(c, cx + 101, 40, 36, 24)
+        x0 = bx - 52 + i * 20
+        c.rect(x0, 50, x0 + 8, 84, "#fffdf6", "#a79f88", 0.6)
+        c.rect(x0 - 2, 48, x0 + 10, 51, "#d6cfba")
+    c.rect(bx - 9, 64, bx + 9, 84, "#5b4a36")
+    # scales of justice (right)
+    sx = cx + 118
+    c.rect(sx - 2, 40, sx + 2, 88, "#6b5a3e")
+    c.rect(sx - 14, 86, sx + 14, 92, "#6b5a3e")
+    c.line([(sx - 24, 46), (sx + 24, 46)], "#6b5a3e", 2.4)
+    c.circ(sx, 40, 4, "#c9a43a")
+    for dx in (-24, 24):
+        c.line([(sx + dx, 46), (sx + dx - 9, 66)], "#6b5a3e", 0.9)
+        c.line([(sx + dx, 46), (sx + dx + 9, 66)], "#6b5a3e", 0.9)
+        c.poly([(sx + dx - 12, 66), (sx + dx + 12, 66), (sx + dx + 7, 72), (sx + dx - 7, 72)], "#c9a43a", "#6b5a3e", 0.8)
+    # gavel + block (left): head rests on the block, handle rises to the right
+    gx = cx - 104
+    c.rect(gx - 24, 90, gx + 24, 98, "#6b4a2a", "#3d2a16", 0.8)
+    c.line([(gx + 2, 80), (gx + 30, 56)], "#a8743c", 3.4)
+    c.rrect(gx - 16, 72, gx + 14, 90, 3, "#8a5a2e", "#3d2a16", 1)
+    c.line([(gx - 16, 76), (gx + 14, 76)], "#3d2a16", 0.8)
 
 
 def sc_nvidia(c, W_):
@@ -623,7 +611,7 @@ def sc_nvidia(c, W_):
     c.line([(cx - 28, base), (cx + 104, base)], "#c9ced6", 1.4)
 
 
-ZOOM = {4: 1.25, 10: 1.2}
+ZOOM = {4: 1.25, 10: 1.2, 11: 1.2}
 
 
 # (scene fn, plate1, plate1 pos, plate2, plate2 pos)
@@ -637,8 +625,8 @@ SCENES = {
     7: (sc_serbia, "STUDENT LIST: 140 OF 250", "tl", None, None),
     8: (sc_plane, "19 KILLED", "tl", None, None),
     9: (sc_bangladesh, "WAGE PROTEST", "tr", None, None),
-    10: (sc_mongolia, "PRESIDENT RESIGNS", "tl", None, None),
-    11: (sc_haiti, "MARCH FOR SALVADORAN TROOPS", "tl", None, None),
+    10: (sc_cyclone, "CYCLONE XAVIER", "tl", "COOK ISLANDS", "br"),
+    11: (sc_court, "OPPOSITION LEADER ON TRIAL", "tl", None, None),
     12: (sc_nvidia, "NVIDIA: $115.8bn", "tl", "SALES DOUBLED", "tr"),
 }
 
