@@ -44,3 +44,9 @@
 {"id":44,"lead":false,"region":"North America","field":"law","head":"Costa Rica: journalist Camilo Rodriguez shot dead","pin":[-84.1,10],"src":"Univision"}
 {"id":45,"lead":false,"region":"South America","field":"law","head":"Ecuador: fishermen sue US over a boat strike","pin":[-79.9,-2.2],"src":"Al Jazeera"}
 {"lead":false,"region":"Africa","field":"politics","head":"Mozambique: opposition leader on trial over 2024 protests","pin":[32.6,-25.97],"src":"Al Jazeera","id":46}
+{"lead":false,"region":"Middle East","field":"war","head":"Hodeidah: Houthis say a Saudi strike killed seven","pin":[42.95,14.8],"src":"Al Jazeera","id":47}
+{"lead":false,"region":"Asia","field":"diplomacy","head":"Manila: ASEAN summit ends with an anti-scam pact","pin":[120.98,14.6],"src":"Reuters","id":48}
+{"lead":false,"region":"North America","field":"tech","head":"US: new rules curb China's access to AI chips","pin":[-77,38.9],"src":"Reuters","id":49}
+{"lead":false,"region":"North America","field":"politics","head":"Haiti: three women join the presidential race","pin":[-72.3,18.55],"src":"Reuters","id":50}
+{"lead":false,"region":"Global","field":"sport","head":"FIFA: Infantino rival Diallo claims wide support","pin":null,"src":"Al Jazeera","id":51}
+{"lead":false,"region":"Global","field":"science","head":"Space: Leonid meteor shower peaks overnight","pin":null,"src":"Al Jazeera","id":52}
