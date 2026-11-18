@@ -4,10 +4,10 @@
 
 A newspaper front page that sums up the world's news of **Tuesday 17 November 2026** in a single 1024x1024 image.
 
-- **Masthead**: the date as the headline, plus a story count and continent count that are computed from the data (never typed), a region legend and a region tally bar.
+- **Masthead**: the date as the headline, plus story, continent and field counts that are computed from the data (never typed), a region legend and a region tally bar.
 - **12 lead stories** as illustrated tiles: a flat-vector scene panel with a short label plate, a numbered region badge, a headline and a sub line.
-- **Map**: a coarse hand-made world map with every story pinned from its longitude/latitude (leads are numbered circles, briefs are dots).
-- **23 briefs** in two columns, one line each.
+- **Map**: a coarse hand-made world map with every story pinned from its longitude/latitude (leads are numbered circles, briefs are dots), plus a count of stories by field.
+- **34 briefs** in two columns, one line each: 46 stories in all, across 12 fields and 6 continents (South America included).
 
 ## Facts
 
