@@ -35,7 +35,7 @@ REG = {
     "Asia": "#0f7a5b",
     "North America": "#b0202c",
     "Africa": "#6c3a9b",
-    "Oceania": "#9b2f77",
+    "Oceania": "#0b86a8",
 }
 REG_ORDER = ["Europe", "Middle East", "Asia", "North America", "Africa", "Oceania"]
 CONT = {"Europe": "Europe", "Middle East": "Asia", "Asia": "Asia", "North America": "North America",
@@ -809,16 +809,16 @@ def render():
     kf = font("sb", 12)
     track = 1.6
     for ch in kick:
-        c.d.text((x * S, 15 * S), ch, font=kf, fill=SOFT)
+        c.d.text((x * S, 13 * S), ch, font=kf, fill=SOFT)
         x += kf.getlength(ch) / S + track
-    CHECKS.append(("kicker", (M, 15, x, 30), (M, 0, W - M, 34)))
+    CHECKS.append(("kicker", (M, 13, x, 28), (M, 0, W - M, 34)))
     put.fill = INK
     hl = "Tuesday 17 November 2026"
     hp = 40
     while tw("gb", hp + 1, hl) <= CW:
         hp += 1
-    put("headline-date", hl, "gb", hp, M - 1, 22, "la", (M - 2, 0, W - M + 2, 110))
-    rowy = int(22 + hp * 1.07)
+    put("headline-date", hl, "gb", hp, M - 1, 19, "la", (M - 2, 0, W - M + 2, 110))
+    rowy = int(19 + hp * 1.07) + 5
     # legend (left) and count (right)
     lx = M
     lf = font("sb", 12)
@@ -835,7 +835,7 @@ def render():
     put("count line", cnt, "sb", 14.5, W - M, rowy - 1, "ra", (M, rowy - 3, W - M, rowy + 20))
     assert legend_end < W - M - cw_ - 8, ("legend collides with count line", legend_end, W - M - cw_)
     # tally bar
-    by = rowy + 19
+    by = rowy + 17
     bx = M
     for rg in REG_ORDER:
         wseg = CW * regcount[rg] / N
